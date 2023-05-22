@@ -63,8 +63,10 @@ namespace MovLib.Data.Models
         /// Id of director from Directors table/model
         /// </summary>
         public int director_id { get; set; }
-
+        /// <summary>
+        /// Foreign key for director
+        /// </summary>
         [ForeignKey("director_id")]
-        public virtual Director director { get; set; }
+        public virtual Director Director { get; set; }
     }
 }

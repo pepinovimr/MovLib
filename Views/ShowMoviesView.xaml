@@ -12,16 +12,25 @@
                 Source="{Binding Movies, Source={StaticResource movieViewSource}}"/>
     </UserControl.Resources>
     <Grid Loaded="Grid_Loaded">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="filterTB" Margin="10" Padding="5" Grid.Column="0"></TextBox>
+        </Grid>
         <DataGrid x:Name="categoryDataGrid" AutoGenerateColumns="False" 
-          EnableRowVirtualization="True" 
+          EnableRowVirtualization="True" Grid.Row="1"
           ItemsSource="{Binding Source={StaticResource movieViewSource}}" 
-          Margin="13,13,43,229" RowDetailsVisibilityMode="VisibleWhenSelected">
+          Margin="10,10,10,80" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding id}"
-                            Header="Movie Id" Width="SizeToHeader"
-                            IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding title}" Header="Title" 
-                            Width="*"/>
+                            Width="*" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding tagline}"
+                            Header="TagLine" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

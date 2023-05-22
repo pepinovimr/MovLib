@@ -35,7 +35,9 @@ namespace MovLib.Data.Models
         /// Role of director (shouldn't be else than "Directing")
         /// </summary>
         public string department { get; set; } = "Directing";
-
+        /// <summary>
+        /// Reference to Movie table making it 1:N relation
+        /// </summary>
         public virtual ICollection<Movie> movies { get; set; }
     }
 }
