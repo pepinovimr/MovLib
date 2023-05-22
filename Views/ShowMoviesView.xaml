@@ -11,21 +11,28 @@
         <CollectionViewSource x:Key="movieDirectorViewSource"
                 Source="{Binding Movies, Source={StaticResource movieViewSource}}"/>
     </UserControl.Resources>
+    
     <Grid Loaded="Grid_Loaded">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="80"/>
         </Grid.RowDefinitions>
+        
+        <!-- Search Bar -->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300"/>
             </Grid.ColumnDefinitions>
             <TextBox x:Name="filterTB" Margin="10" Padding="5" Grid.Column="0"></TextBox>
         </Grid>
+
+        <!-- Datagrid -->
+        <!-- Make dynamic? for dynamic  -->
         <DataGrid x:Name="categoryDataGrid" AutoGenerateColumns="False" 
           EnableRowVirtualization="True" Grid.Row="1"
           ItemsSource="{Binding Source={StaticResource movieViewSource}}" 
-          Margin="10,10,10,80" RowDetailsVisibilityMode="VisibleWhenSelected">
+          Margin="10" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding title}" Header="Title" 
                             Width="*" IsReadOnly="True"/>
@@ -33,5 +40,16 @@
                             Header="TagLine" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
+            
+        <!-- Buttons -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="changeBTN" Content="Upravit" Grid.Column="0" Margin="20"/>
+            <Button x:Name="deleteBTN" Content="Smazat" Grid.Column="1" Margin="20"/>
+        </Grid>
     </Grid>
 </UserControl>
