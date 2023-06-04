@@ -24,19 +24,23 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300"/>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="filterTB" Margin="10" Padding="5" Grid.Column="0"></TextBox>
+            <TextBox x:Name="filterTB" Margin="10" Padding="5" Grid.Column="0" Text="{Binding FilterText}"></TextBox>
         </Grid>
 
         <!-- Datagrid -->
-        <!-- Make dynamic? for dynamic  -->
+        <!-- Make dynamic? -->
         <DataGrid x:Name="categoryDataGrid" AutoGenerateColumns="False" 
           EnableRowVirtualization="True" Grid.Row="1"
           ItemsSource="{Binding Source={StaticResource movieViewSource}}" 
           Margin="10" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding title}" Header="Title" 
+                <DataGridTextColumn Binding="{Binding Title}" Header="Title" 
                             Width="*" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding tagline}"
+                <DataGridTextColumn Binding="{Binding OverView}"
+                            Header="TagLine" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding VoteAverage}"
+                            Header="TagLine" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding VoteCount}"
                             Header="TagLine" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
@@ -48,8 +52,8 @@
                 <ColumnDefinition Width="150"/>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="changeBTN" Content="Upravit" Grid.Column="0" Margin="20"/>
-            <Button x:Name="deleteBTN" Content="Smazat" Grid.Column="1" Margin="20"/>
+            <Button x:Name="changeBTN" Content="Upravit" Grid.Column="0" Margin="20" Command="{Binding ChangeCommand}"/>
+            <Button x:Name="deleteBTN" Content="Smazat" Grid.Column="1" Margin="20" Command="{Binding DeleteCommand}"/>
         </Grid>
     </Grid>
 </UserControl>

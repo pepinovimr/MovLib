@@ -29,8 +29,8 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Button Grid.Row="0" Content="Filmy" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
-            <Button Grid.Row="1" Content="Režiséři" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
+            <Button Grid.Row="0" Content="Filmy" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Command="{Binding ShowMoviesCommand}"/>
+            <Button Grid.Row="1" Content="Režiséři" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Command="{Binding ShowDirectorsCommand}"/>
             <Button Grid.Row="2" Content="Button 3" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
             <Button Grid.Row="3" Content="Button 4" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" />
         </Grid>
