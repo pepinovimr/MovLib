@@ -16,6 +16,13 @@ namespace MovLib.ViewModels
         public string Overview => _movie.overview;
         public float VoteAverage => _movie.vote_average;
         public float VoteCount => _movie.vote_count;
+        public string OriginalTitle => _movie.original_title;
+        public long Budget => _movie.budget;
+        public int Popularity => _movie.popularity;
+        public DateOnly ReleaseDate => _movie.release_date;
+        public long Revenue => _movie.revenue;
+        public string? TagLine => _movie.tagline;
+        public Director Director => _movie.Director;
 
         public MovieViewModel(Movie movie)
         {

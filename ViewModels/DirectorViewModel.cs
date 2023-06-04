@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace MovLib.ViewModels
 {
-    class DirectorViewModel
+    class DirectorViewModel : BaseViewModel
     {
+
     }
 }

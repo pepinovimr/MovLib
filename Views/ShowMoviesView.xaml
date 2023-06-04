@@ -31,17 +31,17 @@
         <!-- Make dynamic? -->
         <DataGrid x:Name="categoryDataGrid" AutoGenerateColumns="False" 
           EnableRowVirtualization="True" Grid.Row="1"
-          ItemsSource="{Binding Source={StaticResource movieViewSource}}" 
+          ItemsSource="{Binding Movies}" 
           Margin="10" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Title}" Header="Title" 
+                <DataGridTextColumn Binding="{Binding Title}" Header="Název" 
                             Width="*" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding OverView}"
-                            Header="TagLine" IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Overview}"
+                            Header="Popis" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding VoteAverage}"
-                            Header="TagLine" IsReadOnly="True"/>
+                            Header="Hodnocení" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding VoteCount}"
-                            Header="TagLine" IsReadOnly="True"/>
+                            Header="Počet hlasů" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
             
