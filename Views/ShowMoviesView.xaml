@@ -37,7 +37,7 @@
                 <DataGridTextColumn Binding="{Binding Title}" Header="Název" 
                             IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding Tagline}"
-                            Width="*" Header="Popis" IsReadOnly="True"/>
+                            Width="*" Header="Popisek" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding VoteAverage}"
                             Header="Hodnocení" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding VoteCount}"
@@ -50,10 +50,13 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="150"/>
                 <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="150"/>
             </Grid.ColumnDefinitions>
-
+            
             <Button x:Name="changeBTN" Content="Upravit" Grid.Column="0" Margin="20" Command="{Binding ChangeCommand}"/>
             <Button x:Name="deleteBTN" Content="Smazat" Grid.Column="1" Margin="20" Command="{Binding DeleteCommand}"/>
+            <Button x:Name="detailBTN" Content="Detail" Grid.Column="2" Margin="20" Command="{Binding ShowDetailCommand}"/>
+            
         </Grid>
     </Grid>
 </UserControl>
