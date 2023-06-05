@@ -13,56 +13,69 @@ namespace MovLib.Data.Models
         /// Id of movie
         /// </summary>
         [Key]
-        public int id { get; set; }
+        [Column("id")]
+        public int Id { get; set; }
         /// <summary>
         /// Original title of movie
         /// </summary>
-        public string original_title { get; set; }
+        [Column("original_title")]
+        public string OriginalTitle { get; set; }
         /// <summary>
         /// Budget of movie in US$
         /// </summary>
-        public long budget { get; set; }
+        [Column("budget")]
+        public long Budget { get; set; }
         /// <summary>
         /// Popularity of movie described in numbers
         /// </summary>
-        public int popularity { get; set; }
+        [Column("popularity")]
+        public int Popularity { get; set; }
         /// <summary>
         /// Release date of movie
         /// </summary>
-        public DateOnly release_date { get; set; }
+        [Column("release_date")]
+        public DateOnly ReleaseDate { get; set; }
         /// <summary>
         /// Revenue of movie inUS$
         /// </summary>
-        public long revenue { get; set; }
+        [Column("revenue")]
+        public long Revenue { get; set; }
         /// <summary>
         /// Name of the movie
         /// </summary>
+        [Column("title")]
         [Required]
-        public string title { get; set; }
+        public string Title { get; set; }
         /// <summary>
         /// Average vote on scale from 1-10
         /// </summary>
-        public float vote_average { get; set; }
+        [Column("vote_average")]
+        public float VoteAverage { get; set; }
         /// <summary>
         /// Number of people who voted
         /// </summary>
-        public int vote_count { get; set; }
+        [Column("vote_count")]
+        public int VoteCount { get; set; }
         /// <summary>
         /// Description of movie
         /// </summary>
-        public string? overview { get; set; }
+        [Column("overview")]
+        public string? Overview { get; set; }
         /// <summary>
         /// Short description or comment on a movie that is displayed on movie posters
         /// </summary>
-        public string? tagline { get; set; }
+        [Column("tagline")]
+        public string? Tagline { get; set; }
         /// <summary>
         /// UID of movie
         /// </summary>
-        public int uid { get; set; }
-        /// <summary>
-        /// Id of director from Directors table/model
-        /// </summary>
-        public int director_id { get; set; }
+        [Column("uid")]
+        public int Uid { get; set; }
+        ///// <summary>
+        ///// Id of director from Directors table/model
+        ///// </summary>
+        //[ForeignKey("director_id")]
+        //public int DirectorId { get; set; }
         /// <summary>
         /// Foreign key for director
         /// </summary>

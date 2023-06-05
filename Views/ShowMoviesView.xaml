@@ -6,13 +6,13 @@
              xmlns:local="clr-namespace:MovLib.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
+    <!--<UserControl.Resources>
         <CollectionViewSource x:Key="movieViewSource"/>
         <CollectionViewSource x:Key="movieDirectorViewSource"
                 Source="{Binding Movies, Source={StaticResource movieViewSource}}"/>
-    </UserControl.Resources>
+    </UserControl.Resources>-->
     
-    <Grid Loaded="Grid_Loaded">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
@@ -24,20 +24,20 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="300"/>
             </Grid.ColumnDefinitions>
-            <TextBox x:Name="filterTB" Margin="10" Padding="5" Grid.Column="0" Text="{Binding FilterText}"></TextBox>
+            <TextBox x:Name="filterTB" Margin="10" Padding="5" Grid.Column="0" Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"></TextBox>
         </Grid>
 
         <!-- Datagrid -->
         <!-- Make dynamic? -->
         <DataGrid x:Name="categoryDataGrid" AutoGenerateColumns="False" 
           EnableRowVirtualization="True" Grid.Row="1"
-          ItemsSource="{Binding Movies}" 
+          ItemsSource="{Binding MoviesCollectionView}" 
           Margin="10" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Title}" Header="Název" 
-                            Width="*" IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding Overview}"
-                            Header="Popis" IsReadOnly="True"/>
+                            IsReadOnly="True"/>
+                <DataGridTextColumn Binding="{Binding Tagline}"
+                            Width="*" Header="Popis" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding VoteAverage}"
                             Header="Hodnocení" IsReadOnly="True"/>
                 <DataGridTextColumn Binding="{Binding VoteCount}"

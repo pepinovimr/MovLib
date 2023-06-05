@@ -9,7 +9,7 @@
     <UserControl.Resources>
         <CollectionViewSource x:Key="movieViewSource"/>
         <CollectionViewSource x:Key="movieDirectorViewSource"
-                Source="{Binding Movies, Source={StaticResource movieViewSource}}"/>
+                Source="{Binding Directors, Source={StaticResource movieViewSource}}"/>
     </UserControl.Resources>
     <Grid>
         <DataGrid x:Name="categoryDataGrid" AutoGenerateColumns="False" 

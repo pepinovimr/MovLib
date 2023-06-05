@@ -23,18 +23,9 @@ namespace MovLib.Views
     /// </summary>
     public partial class ShowMoviesView : UserControl
     {
-        private readonly MoviesDbContext _context = new();
-        private CollectionViewSource movieViewSource;
         public ShowMoviesView()
         {
             InitializeComponent();
-            movieViewSource = (CollectionViewSource)FindResource(nameof(movieViewSource));
-        }
-
-        private void Grid_Loaded(object sender, RoutedEventArgs e)
-        {
-            _context.Movies.Load();
-            movieViewSource.Source = _context.Movies.Local.ToObservableCollection();
         }
     }
 }

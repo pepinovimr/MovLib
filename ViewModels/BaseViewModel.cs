@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MovLib.ViewModels
 {
-    internal class BaseViewModel : INotifyPropertyChanged
+    public class BaseViewModel : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler? PropertyChanged;
 

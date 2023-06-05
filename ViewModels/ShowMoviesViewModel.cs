@@ -1,19 +1,28 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using MovLib.Commands;
 using MovLib.Data.Context;
+using MovLib.Data.Models;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace MovLib.ViewModels
 {
-    internal class ShowMoviesViewModel : BaseViewModel
+    public class ShowMoviesViewModel : BaseViewModel
     {
         private readonly MoviesDbContext _context = new();
 
-        private readonly ObservableCollection<MovieViewModel> _movies;
+        private readonly ObservableCollection<Movie> _movies;
 
-        public IEnumerable<MovieViewModel> Movies => _movies;
+        public IEnumerable<Movie> Movies => _movies;
+
+		/// <summary>
+		/// Handles View of collection - Can filter group etc, without changes to main collection
+		/// </summary>
+		public ICollectionView MoviesCollectionView { get; }
 
         private string _filterText;
 		public string FilterText
@@ -35,7 +44,10 @@ namespace MovLib.ViewModels
         public ShowMoviesViewModel()
         {
 			_context.Movies.Load();
-			_movies = new();
+			_movies = _context.Movies.Local.ToObservableCollection();
+			MoviesCollectionView = CollectionViewSource.GetDefaultView(_movies);
+			
+			DeleteCommand = new DeleteMovieCommand();
         }
     }
 }

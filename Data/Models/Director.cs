@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,28 +17,34 @@ namespace MovLib.Data.Models
         /// <summary>
         /// Id of director
         /// </summary>
+        [Column("id")]
         [Key]
-        public int id { get; set; }
+        public int Id { get; set; }
         /// <summary>
         /// Full name of Director
         /// </summary>
+        [Column("name")]
         [Required]
-        public string name { get; set; }
+        public string Name { get; set; }
         /// <summary>
         /// Gender of director
         /// </summary>
-        public int gender { get; set; }
+        [Column("gender")]
+        public int Gender { get; set; }
         /// <summary>
         /// Uid of director
         /// </summary>
-        public int uid { get; set; }
+        [Column("uid")]
+        public int Uid { get; set; }
         /// <summary>
         /// Role of director (shouldn't be else than "Directing")
         /// </summary>
-        public string department { get; set; } = "Directing";
+        [Column("department")]
+        public string Department { get; set; } = "Directing";
         /// <summary>
         /// Reference to Movie table making it 1:N relation
         /// </summary>
-        public virtual ICollection<Movie> movies { get; set; }
+        [Column("movies")]
+        public virtual ICollection<Movie> Movies { get; set; }
     }
 }
