@@ -58,7 +58,8 @@ namespace MovLib
             return new MainViewModel(
                 serviceProvider.GetRequiredService<NavigationStore>(),
                 CreateShowMoviesNavigationService(serviceProvider),
-                CreateShowDirectorsNavigationService(serviceProvider));
+                CreateShowDirectorsNavigationService(serviceProvider),
+                serviceProvider.GetRequiredService<MoviesDbContext>());
         }
 
         private INavigationService CreateShowMoviesNavigationService(IServiceProvider serviceProvider)

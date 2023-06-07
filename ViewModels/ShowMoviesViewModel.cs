@@ -14,7 +14,7 @@ namespace MovLib.ViewModels
 {
     public class ShowMoviesViewModel : BaseViewModel
     {
-        private readonly MoviesDbContext _context = new();
+		private readonly MoviesDbContext _context;
 
         private readonly ObservableCollection<Movie> _movies;
 
@@ -44,9 +44,10 @@ namespace MovLib.ViewModels
         public ICommand ChangeCommand { get; }
 
 
-        public ShowMoviesViewModel()
+        public ShowMoviesViewModel(MoviesDbContext context)
         {
-			_context.Movies.Load();
+			_context = context;
+			//_context.Movies.LoadAsync();
 			_movies = _context.Movies.Local.ToObservableCollection();
 
 			MoviesCollectionView = CollectionViewSource.GetDefaultView(_movies);

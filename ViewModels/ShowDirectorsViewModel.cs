@@ -16,8 +16,7 @@ namespace MovLib.ViewModels
 {
     internal class ShowDirectorsViewModel : BaseViewModel
     {
-        //TODO: Inject
-        private readonly MoviesDbContext _context = new();
+        private readonly MoviesDbContext _context;
 
         private readonly ObservableCollection<Director> _directors;
 
@@ -43,9 +42,10 @@ namespace MovLib.ViewModels
         public ICommand DeleteCommand { get; }
         public ICommand ChangeCommand { get; }
 
-        public ShowDirectorsViewModel()
+        public ShowDirectorsViewModel(MoviesDbContext context)
         {
-            _context.Directors.Load();
+            _context = context;
+            //_context.Directors.LoadAsync();
             _directors = _context.Directors.Local.ToObservableCollection();
 
             DirectorsCollectionView = CollectionViewSource.GetDefaultView(_directors);
