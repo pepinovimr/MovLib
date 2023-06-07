@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 
 namespace MovLib.Services
 {
-    internal class NavigationService : INavigationService
+    public class NavigationService<TViewModel> : INavigationService where TViewModel : BaseViewModel
     {
         private readonly NavigationStore _navigationStore;
-        private readonly Func<BaseViewModel> _createViewModel;
+        private readonly Func<TViewModel> _createViewModel;
 
-        public NavigationService(NavigationStore navigationStore, Func<BaseViewModel> createViewModel)
+        public NavigationService(NavigationStore navigationStore, Func<TViewModel> createViewModel)
         {
             _navigationStore = navigationStore;
             _createViewModel = createViewModel;

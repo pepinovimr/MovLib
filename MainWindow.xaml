@@ -43,9 +43,9 @@
                 <DataTemplate DataType="{x:Type vms:ShowMoviesViewModel}">
                     <views:ShowMoviesView/>
                 </DataTemplate>
-                <!--<DataTemplate DataType="{x:Type vms:}">
-                    <views:ShowMoviesView/>
-                </DataTemplate>-->
+                <DataTemplate DataType="{x:Type vms:ShowDirectorsViewModel}">
+                    <views:ShowDirectorsView/>
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding CurrentViewModel}"/>
         </Grid>

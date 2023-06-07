@@ -21,7 +21,6 @@ namespace MovLib.Data.Context
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //null-coalescing operator - if left side is null, it
             string? baseDirPath = (Directory.GetParent(AppDomain.CurrentDomain.BaseDirectory)?.Parent?.Parent?.Parent?.FullName) 
                 ?? throw new FileNotFoundException("Couldn't find path of this program");
 

@@ -1,4 +1,5 @@
 ﻿using MovLib.Services;
+using MovLib.Services.Interfaces;
 using MovLib.Stores;
 using MovLib.ViewModels;
 using System;
@@ -11,9 +12,9 @@ namespace MovLib.Commands
 {
     internal class NavigateCommand : CommandBase
     {
-        private readonly NavigationService _navigationService;
+        private readonly INavigationService _navigationService;
 
-        public NavigateCommand(NavigationService navigationService, Func<BaseViewModel> createViewModel)
+        public NavigateCommand(INavigationService navigationService)
         {
             _navigationService = navigationService;
         }

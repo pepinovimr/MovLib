@@ -41,6 +41,7 @@ namespace MovLib.ViewModels
 		public ICommand DeleteCommand { get; }
         public ICommand ChangeCommand { get; }
 
+
         public ShowMoviesViewModel()
         {
 			_context.Movies.Load();

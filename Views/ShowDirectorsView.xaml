@@ -3,26 +3,51 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:conv="clr-namespace:MovLib.Converters"
              xmlns:local="clr-namespace:MovLib.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <UserControl.Resources>
-        <CollectionViewSource x:Key="movieViewSource"/>
-        <CollectionViewSource x:Key="movieDirectorViewSource"
-                Source="{Binding Directors, Source={StaticResource movieViewSource}}"/>
-    </UserControl.Resources>
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="80"/>
+        </Grid.RowDefinitions>
+
+        <!-- Search Bar -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="300"/>
+            </Grid.ColumnDefinitions>
+            <TextBox x:Name="filterTB" Margin="10" Padding="5" Grid.Column="0" Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+        </Grid>
+
+        <!-- Datagrid -->
+        <!-- Make dynamic? -->
         <DataGrid x:Name="categoryDataGrid" AutoGenerateColumns="False" 
-          EnableRowVirtualization="True" 
-          ItemsSource="{Binding Source={StaticResource movieViewSource}}" 
-          Margin="13,13,43,229" RowDetailsVisibilityMode="VisibleWhenSelected">
+          EnableRowVirtualization="True" Grid.Row="1"
+          ItemsSource="{Binding DirectorsCollectionView}" 
+          Margin="10" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding id}"
-                            Header="Movie Id" Width="SizeToHeader"
+                <DataGridTextColumn Binding="{Binding Name}" Header="Jméno" 
                             IsReadOnly="True"/>
-                <DataGridTextColumn Binding="{Binding title}" Header="Title" 
-                            Width="*"/>
+                <DataGridTextColumn Binding="{Binding Gender, Converter={x:Static conv:NumberToGenderConverter.Instance}}"
+                            Width="*" Header="Pohlaví" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
+
+        <!-- Buttons -->
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="150"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="changeBTN" Content="Upravit" Grid.Column="0" Margin="20" Command="{Binding ChangeCommand}"/>
+            <Button x:Name="deleteBTN" Content="Smazat" Grid.Column="1" Margin="20" Command="{Binding DeleteCommand}"/>
+            <Button x:Name="detailBTN" Content="Detail" Grid.Column="2" Margin="20" Command="{Binding ShowDetailCommand}"/>
+
+        </Grid>
     </Grid>
 </UserControl>

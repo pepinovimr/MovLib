@@ -1,4 +1,6 @@
-﻿using MovLib.Stores;
+﻿using MovLib.Commands;
+using MovLib.Services.Interfaces;
+using MovLib.Stores;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,9 +15,16 @@ namespace MovLib.ViewModels
         private readonly NavigationStore _navigationStore;
         public BaseViewModel CurrentViewModel => _navigationStore.CurrentViewModel;
 
-        public MainViewModel(NavigationStore navigationStore)
+        public ICommand ShowMoviesCommand { get; }
+        public ICommand ShowDirectorsCommand { get; }
+
+        public MainViewModel(NavigationStore navigationStore, INavigationService showMoviesNavigationService, INavigationService showDirectorsNavigationService)
         {
             _navigationStore = navigationStore;
+
+            ShowMoviesCommand = new NavigateCommand(showMoviesNavigationService);
+            ShowDirectorsCommand = new NavigateCommand(showDirectorsNavigationService);
+
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
         }
 
@@ -23,5 +32,6 @@ namespace MovLib.ViewModels
         {
             OnPropertyChanged(nameof(CurrentViewModel));
         }
+
     }
 }
