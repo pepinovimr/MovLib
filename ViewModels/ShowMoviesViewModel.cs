@@ -2,6 +2,7 @@
 using MovLib.Commands;
 using MovLib.Data.Context;
 using MovLib.Data.Models;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -24,7 +25,7 @@ namespace MovLib.ViewModels
 		/// </summary>
 		public ICollectionView MoviesCollectionView { get; }
 
-        private string _filterText;
+        private string _filterText = string.Empty;
 		public string FilterText
 		{
 			get
@@ -35,6 +36,7 @@ namespace MovLib.ViewModels
 			{
 				_filterText = value;
 				OnPropertyChanged(nameof(FilterText));
+				MoviesCollectionView.Refresh();
 			}
 		}
 
@@ -46,9 +48,23 @@ namespace MovLib.ViewModels
         {
 			_context.Movies.Load();
 			_movies = _context.Movies.Local.ToObservableCollection();
+
 			MoviesCollectionView = CollectionViewSource.GetDefaultView(_movies);
-			
+			MoviesCollectionView.Filter = FilterMovies;
+
 			DeleteCommand = new DeleteMovieCommand();
         }
+
+		private bool FilterMovies(object obj)
+		{
+			if (obj is Movie movie)
+			{
+				return movie.Title.Contains(FilterText, StringComparison.InvariantCultureIgnoreCase) || 
+					(movie.Tagline != null && movie.Tagline.Contains(FilterText, StringComparison.InvariantCultureIgnoreCase));
+
+            }
+
+			return false;
+		}
     }
 }

@@ -25,7 +25,7 @@ namespace MovLib.ViewModels
 
         public IEnumerable<Director> Directors => _directors;
 
-        private string _filterText;
+        private string _filterText = string.Empty;
         public string FilterText
         {
             get
@@ -36,6 +36,7 @@ namespace MovLib.ViewModels
             {
                 _filterText = value;
                 OnPropertyChanged(nameof(FilterText));
+                DirectorsCollectionView.Refresh();
             }
         }
 
@@ -46,9 +47,23 @@ namespace MovLib.ViewModels
         {
             _context.Directors.Load();
             _directors = _context.Directors.Local.ToObservableCollection();
+
             DirectorsCollectionView = CollectionViewSource.GetDefaultView(_directors);
+            DirectorsCollectionView.Filter = FilterDirectors;
 
             DeleteCommand = new DeleteMovieCommand();
+        }
+
+        private bool FilterDirectors(object obj)
+        {
+            if (obj is Director director)
+            {
+                return director.Name.Contains(FilterText, StringComparison.InvariantCultureIgnoreCase);
+                    //|| director.Movies.Any(x => x.Title.Contains(FilterText, StringComparison.InvariantCultureIgnoreCase)); -> filtering also by their movies.
+
+            }
+
+            return false;
         }
     }
 }
