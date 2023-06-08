@@ -14,7 +14,7 @@ namespace MovLib.ViewModels
 {
     public class MainViewModel : BaseViewModel
     {
-        private readonly MoviesDbContext _context;
+        private readonly ApplicationDbContext _context;
         private readonly NavigationStore _navigationStore;
         public BaseViewModel CurrentViewModel => _navigationStore.CurrentViewModel;
 
@@ -25,7 +25,7 @@ namespace MovLib.ViewModels
             (NavigationStore navigationStore, 
             INavigationService showMoviesNavigationService, 
             INavigationService showDirectorsNavigationService,
-            MoviesDbContext context)
+            ApplicationDbContext context)
         {
             //Probably better to load on startup and wait, then having lags in app bcs of loading
             _context = context;

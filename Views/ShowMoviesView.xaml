@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:conv="clr-namespace:MovLib.Converters"
              xmlns:local="clr-namespace:MovLib.Views"
+             xmlns:bhv="clr-namespace:MovLib.Behavior"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <!--<UserControl.Resources>
@@ -32,7 +33,8 @@
         <!-- Make dynamic? -->
         <DataGrid x:Name="moviesDataGrid" AutoGenerateColumns="False" 
           EnableRowVirtualization="True" Grid.Row="1"
-          ItemsSource="{Binding MoviesCollectionView}" 
+          ItemsSource="{Binding Movies}" 
+          bhv:DataGridSelectedItemsBehavior.SelectedItems="{Binding SelectedItems}"
           Margin="10" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Title}" Header="Název" 

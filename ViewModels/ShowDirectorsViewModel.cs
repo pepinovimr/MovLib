@@ -16,7 +16,7 @@ namespace MovLib.ViewModels
 {
     internal class ShowDirectorsViewModel : BaseViewModel
     {
-        private readonly MoviesDbContext _context;
+        private readonly ApplicationDbContext _context;
 
         private readonly ObservableCollection<Director> _directors;
 
@@ -39,10 +39,11 @@ namespace MovLib.ViewModels
             }
         }
 
+        //TODO: Add implementation of DeleteCommand here
         public ICommand DeleteCommand { get; }
         public ICommand ChangeCommand { get; }
 
-        public ShowDirectorsViewModel(MoviesDbContext context)
+        public ShowDirectorsViewModel(ApplicationDbContext context)
         {
             _context = context;
             //_context.Directors.LoadAsync();

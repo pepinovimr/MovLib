@@ -27,7 +27,9 @@ namespace MovLib
 
             services.AddSingleton<NavigationStore>();
 
-            services.AddDbContext<MoviesDbContext>();
+            services.AddScoped<MovieService>();
+
+            services.AddDbContext<ApplicationDbContext>();
             //services.AddSingleton<INavigationService>(s => CreateMainNavigationService(s));
 
             services.AddSingleton<MainViewModel>(s => CreateMainViewModel(s));
@@ -59,7 +61,7 @@ namespace MovLib
                 serviceProvider.GetRequiredService<NavigationStore>(),
                 CreateShowMoviesNavigationService(serviceProvider),
                 CreateShowDirectorsNavigationService(serviceProvider),
-                serviceProvider.GetRequiredService<MoviesDbContext>());
+                serviceProvider.GetRequiredService<ApplicationDbContext>());
         }
 
         private INavigationService CreateShowMoviesNavigationService(IServiceProvider serviceProvider)
