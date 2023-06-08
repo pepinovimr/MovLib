@@ -42,9 +42,11 @@ namespace MovLib.ViewModels
 
 		public ICommand DeleteCommand { get; }
         public ICommand ChangeCommand { get; }
+		public ICommand ShowDetailCommand { get; }
 
 
-        public ShowMoviesViewModel(MoviesDbContext context)
+
+		public ShowMoviesViewModel(MoviesDbContext context)
         {
 			_context = context;
 			//_context.Movies.LoadAsync();
@@ -52,8 +54,6 @@ namespace MovLib.ViewModels
 
 			MoviesCollectionView = CollectionViewSource.GetDefaultView(_movies);
 			MoviesCollectionView.Filter = FilterMovies;
-
-			DeleteCommand = new DeleteMovieCommand();
         }
 
 		private bool FilterMovies(object obj)

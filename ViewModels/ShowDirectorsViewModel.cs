@@ -50,8 +50,6 @@ namespace MovLib.ViewModels
 
             DirectorsCollectionView = CollectionViewSource.GetDefaultView(_directors);
             DirectorsCollectionView.Filter = FilterDirectors;
-
-            DeleteCommand = new DeleteMovieCommand();
         }
 
         private bool FilterDirectors(object obj)

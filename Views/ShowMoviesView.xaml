@@ -3,6 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:conv="clr-namespace:MovLib.Converters"
              xmlns:local="clr-namespace:MovLib.Views"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -29,7 +30,7 @@
 
         <!-- Datagrid -->
         <!-- Make dynamic? -->
-        <DataGrid x:Name="categoryDataGrid" AutoGenerateColumns="False" 
+        <DataGrid x:Name="moviesDataGrid" AutoGenerateColumns="False" 
           EnableRowVirtualization="True" Grid.Row="1"
           ItemsSource="{Binding MoviesCollectionView}" 
           Margin="10" RowDetailsVisibilityMode="VisibleWhenSelected">
@@ -53,10 +54,12 @@
                 <ColumnDefinition Width="150"/>
             </Grid.ColumnDefinitions>
             
-            <Button x:Name="changeBTN" Content="Upravit" Grid.Column="0" Margin="20" Command="{Binding ChangeCommand}"/>
+            <Button x:Name="changeBTN" Content="Upravit" Grid.Column="0" Margin="20" Command="{Binding ChangeCommand}"
+                    IsEnabled="{Binding Path=SelectedItems.Count, ElementName=moviesDataGrid, Converter={x:Static conv:SelectedItemsToBooleanConverter.Instance}}"/>
             <Button x:Name="deleteBTN" Content="Smazat" Grid.Column="1" Margin="20" Command="{Binding DeleteCommand}"/>
-            <Button x:Name="detailBTN" Content="Detail" Grid.Column="2" Margin="20" Command="{Binding ShowDetailCommand}"/>
-            
+            <Button x:Name="detailBTN" Content="Detail" Grid.Column="2" Margin="20" Command="{Binding ShowDetailCommand}"
+                    IsEnabled="{Binding Path=IsEnabled, ElementName=changeBTN}"/>
+
         </Grid>
     </Grid>
 </UserControl>
