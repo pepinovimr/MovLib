@@ -25,12 +25,12 @@ namespace MovLib
         {
             IServiceCollection services = new ServiceCollection();
 
+            services.AddDbContext<ApplicationDbContext>();
+
             services.AddSingleton<NavigationStore>();
 
-            services.AddScoped<MovieService>();
-
-            services.AddDbContext<ApplicationDbContext>();
-            //services.AddSingleton<INavigationService>(s => CreateMainNavigationService(s));
+            services.AddScoped<IMovieService, MovieService>();
+            services.AddScoped<IDirectorService, DirectorService>();
 
             services.AddSingleton<MainViewModel>(s => CreateMainViewModel(s));
             services.AddTransient<ShowMoviesViewModel>();

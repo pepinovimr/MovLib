@@ -5,6 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:conv="clr-namespace:MovLib.Converters"
              xmlns:local="clr-namespace:MovLib.Views"
+             xmlns:bhv="clr-namespace:MovLib.Behavior"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
@@ -24,9 +25,10 @@
 
         <!-- Datagrid -->
         <!-- Make dynamic? -->
-        <DataGrid x:Name="categoryDataGrid" AutoGenerateColumns="False" 
+        <DataGrid x:Name="directorsDataGrid" AutoGenerateColumns="False"
           EnableRowVirtualization="True" Grid.Row="1"
           ItemsSource="{Binding DirectorsCollectionView}" 
+          bhv:DataGridSelectedItemsBehavior.SelectedItems="{Binding SelectedItems}"
           Margin="10" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Jméno" 
@@ -45,7 +47,7 @@
             </Grid.ColumnDefinitions>
 
             <Button x:Name="changeBTN" Content="Upravit" Grid.Column="0" Margin="20" Command="{Binding ChangeCommand}"
-                    IsEnabled="{Binding Path=SelectedItems.Count, ElementName=moviesDataGrid, Converter={x:Static conv:SelectedItemsToBooleanConverter.Instance}}"/>
+                    IsEnabled="{Binding Path=SelectedItems.Count, ElementName=directorsDataGrid, Converter={x:Static conv:SelectedItemsToBooleanConverter.Instance}}"/>
             <Button x:Name="deleteBTN" Content="Smazat" Grid.Column="1" Margin="20" Command="{Binding DeleteCommand}"/>
             <Button x:Name="detailBTN" Content="Detail" Grid.Column="2" Margin="20" Command="{Binding ShowDetailCommand}"
                     IsEnabled="{Binding Path=IsEnabled, ElementName=changeBTN}"/>

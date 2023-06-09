@@ -2,7 +2,6 @@
 using MovLib.Commands;
 using MovLib.Data.Context;
 using MovLib.Data.Models;
-using MovLib.Services;
 using MovLib.Services.Interfaces;
 using System;
 using System.Collections;
@@ -56,7 +55,14 @@ namespace MovLib.ViewModels
 
         private ObservableCollection<Movie> _selectedItems = new();
 
-        public ObservableCollection<Movie> SelectedItems { get; set; } = new();
+        public ObservableCollection<Movie> SelectedItems {
+            get { return _selectedItems; }
+			set
+            {
+				_selectedItems = value;
+				OnPropertyChanged(nameof(SelectedItems));
+            }
+		}
 
         public ICommand DeleteCommand { get; }
         public ICommand ChangeCommand { get; }
@@ -64,7 +70,7 @@ namespace MovLib.ViewModels
 
 
 
-		public ShowMoviesViewModel(ApplicationDbContext context, MovieService movieService)
+		public ShowMoviesViewModel(ApplicationDbContext context, IMovieService movieService)
         {
 			_context = context;
 			_movieService = movieService;
@@ -72,7 +78,7 @@ namespace MovLib.ViewModels
 			//_context.Movies.LoadAsync();
 			_movies = _context.Movies.Local.ToObservableCollection();
 
-			//SelectedItems = new ObservableCollection<Movie>();
+			SelectedItems = new ObservableCollection<Movie>();
 
 			MoviesCollectionView = CollectionViewSource.GetDefaultView(_movies);
 			MoviesCollectionView.Filter = FilterMovies;
@@ -82,13 +88,13 @@ namespace MovLib.ViewModels
 
         private void OnMoviesDelete()
         {
-            if(SelectedItems.Count < 1)
+            if(_selectedItems.Count < 1)
 			{
 				MessageBox.Show("Nejdříve vyberte záznam ke smazání", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
 				return;
 			}
 
-			_movieService.DeleteMovies(SelectedItems.ToList());
+			_movieService.DeleteMovies(_selectedItems.ToList());
         }
 
         private bool FilterMovies(object obj)

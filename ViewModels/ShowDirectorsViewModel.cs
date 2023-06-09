@@ -2,6 +2,7 @@
 using MovLib.Commands;
 using MovLib.Data.Context;
 using MovLib.Data.Models;
+using MovLib.Services.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,6 +10,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -17,6 +19,8 @@ namespace MovLib.ViewModels
     internal class ShowDirectorsViewModel : BaseViewModel
     {
         private readonly ApplicationDbContext _context;
+
+        private readonly IDirectorService _directorService;
 
         private readonly ObservableCollection<Director> _directors;
 
@@ -39,15 +43,31 @@ namespace MovLib.ViewModels
             }
         }
 
-        //TODO: Add implementation of DeleteCommand here
+        private ObservableCollection<Director> _selectedItems = new();
+
+        public ObservableCollection<Director> SelectedItems
+        {
+            get { return _selectedItems; }
+            set
+            {
+                _selectedItems = value;
+                OnPropertyChanged(nameof(SelectedItems));
+            }
+        }
+
+        //TODO: Figure out what to do with movies of deleted Directors
         public ICommand DeleteCommand { get; }
         public ICommand ChangeCommand { get; }
 
-        public ShowDirectorsViewModel(ApplicationDbContext context)
+        public ShowDirectorsViewModel(ApplicationDbContext context, IDirectorService directorService)
         {
             _context = context;
-            //_context.Directors.LoadAsync();
+
+            _directorService = directorService;
+
             _directors = _context.Directors.Local.ToObservableCollection();
+
+            SelectedItems = new();
 
             DirectorsCollectionView = CollectionViewSource.GetDefaultView(_directors);
             DirectorsCollectionView.Filter = FilterDirectors;
@@ -63,6 +83,17 @@ namespace MovLib.ViewModels
             }
 
             return false;
+        }
+
+        private void OnDirectorDelete()
+        {
+            if (_selectedItems.Count < 1)
+            {
+                MessageBox.Show("Nejdříve vyberte záznam ke smazání", "Chyba", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
+            _directorService.DeleteDirectors(_selectedItems.ToList());
         }
     }
 }
