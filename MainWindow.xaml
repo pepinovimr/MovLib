@@ -46,6 +46,12 @@
                 <DataTemplate DataType="{x:Type vms:ShowDirectorsViewModel}">
                     <views:ShowDirectorsView/>
                 </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:MovieDetailViewModel}">
+                    <views:MovieDetailView/>
+                </DataTemplate>
+                <DataTemplate DataType="{x:Type vms:DirectorDetailViewModel}">
+                    <views:DirectorDetailView/>
+                </DataTemplate>
             </Grid.Resources>
             <ContentControl Content="{Binding CurrentViewModel}"/>
         </Grid>

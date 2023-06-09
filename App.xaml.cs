@@ -29,12 +29,15 @@ namespace MovLib
 
             services.AddSingleton<NavigationStore>();
 
-            services.AddScoped<IMovieService, MovieService>();
+            services.AddScoped<MovieService>();
             services.AddScoped<IDirectorService, DirectorService>();
+            services.AddScoped<INavigationService, NavigationService<ShowMoviesViewModel>>();
+            services.AddScoped<INavigationService, NavigationService<ShowDirectorsViewModel>>();
 
             services.AddSingleton<MainViewModel>(s => CreateMainViewModel(s));
-            services.AddTransient<ShowMoviesViewModel>();
+            services.AddTransient<ShowMoviesViewModel>(s => CreateShowMoviesViewModel(s));
             services.AddTransient<ShowDirectorsViewModel>();
+            services.AddTransient<MovieDetailViewModel>();
 
             services.AddSingleton<MainWindow>(s => new MainWindow()
             {
@@ -55,6 +58,7 @@ namespace MovLib
             base.OnStartup(e);
         }
 
+        #region MainViewModel
         private MainViewModel CreateMainViewModel(IServiceProvider serviceProvider)
         {
             return new MainViewModel(
@@ -77,5 +81,24 @@ namespace MovLib
                 serviceProvider.GetRequiredService<NavigationStore>(),
                 serviceProvider.GetRequiredService<ShowDirectorsViewModel>);
         }
+        #endregion
+        #region ShowMoviesViewModel
+
+        private ShowMoviesViewModel CreateShowMoviesViewModel(IServiceProvider serviceProvider)
+        {
+            return new ShowMoviesViewModel(
+                serviceProvider.GetRequiredService<ApplicationDbContext>(),
+                serviceProvider.GetRequiredService<MovieService>(),
+                CreateMovieDetailNavigationService(serviceProvider));
+        }
+
+        private INavigationService CreateMovieDetailNavigationService(IServiceProvider serviceProvider)
+        {
+            return new NavigationService<MovieDetailViewModel>(
+                serviceProvider.GetRequiredService<NavigationStore>(),
+                serviceProvider.GetRequiredService<MovieDetailViewModel>);
+        }
+
+        #endregion
     }
 }

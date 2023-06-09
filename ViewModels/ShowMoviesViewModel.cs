@@ -2,6 +2,7 @@
 using MovLib.Commands;
 using MovLib.Data.Context;
 using MovLib.Data.Models;
+using MovLib.Services;
 using MovLib.Services.Interfaces;
 using System;
 using System.Collections;
@@ -70,11 +71,11 @@ namespace MovLib.ViewModels
 
 
 
-		public ShowMoviesViewModel(ApplicationDbContext context, IMovieService movieService)
+		public ShowMoviesViewModel(ApplicationDbContext context, IMovieService movieService, INavigationService movieDetailNavigationService)
         {
 			_context = context;
 			_movieService = movieService;
-
+			ShowDetailCommand = new NavigateCommand(movieDetailNavigationService);
 			//_context.Movies.LoadAsync();
 			_movies = _context.Movies.Local.ToObservableCollection();
 
