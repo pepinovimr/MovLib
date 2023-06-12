@@ -13,15 +13,15 @@ namespace MovLib.Services
             _context = context;
         }
 
-        public void DeleteMovie(Movie movie)
-        {
-            _context.Movies.Remove(movie);
-            _context.SaveChanges();
-        }
-
         public void DeleteMovies(List<Movie> movies)
         {
             _context.Movies.RemoveRange(movies);
+            _context.SaveChanges();
+        }
+
+        public void AddMovie(Movie movie)
+        {
+            _context.Movies.Add(movie);
             _context.SaveChanges();
         }
     }

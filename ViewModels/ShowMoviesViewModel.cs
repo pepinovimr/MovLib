@@ -22,8 +22,8 @@ namespace MovLib.ViewModels
         private readonly NavigationStore _navigationStore;
         private ObservableCollection<Movie> _movies;
 		
-        ParameterNavigationService<Movie, MovieDetailViewModel> _movieDetailNavigationService;
-
+        private ParameterNavigationService<Movie, MovieDetailViewModel> _movieDetailNavigationService;
+        private ParameterNavigationService<Movie, MovieDetailViewModel> _changeMovieNavigationService;
 
         public ObservableCollection<Movie> Movies
 		{
@@ -87,6 +87,7 @@ namespace MovLib.ViewModels
 
 			DeleteCommand = new RelayCommand(OnMoviesDelete);
 			ShowDetailCommand = new RelayCommand(OnShowMovieDetail);
+			ChangeCommand = new RelayCommand(OnChangeMovie);
         }
 
         private void OnMoviesDelete()
@@ -109,6 +110,15 @@ namespace MovLib.ViewModels
 			_movieDetailNavigationService.Navigate(_selectedItems.First());
         }
 
+		private void OnChangeMovie()
+		{
+            _changeMovieNavigationService = new ParameterNavigationService<Movie, AddMovieViewModel>(
+                _navigationStore,
+                (parameter) => new AddMovieViewModel(_movieService, _context, _selectedItems.First()));
+
+            _changeMovieNavigationService.Navigate(_selectedItems.First());
+        }
+
         private bool FilterMovies(object obj)
 		{
 			if (obj is Movie movie)
@@ -120,5 +130,6 @@ namespace MovLib.ViewModels
 
 			return false;
 		}
+
     }
 }

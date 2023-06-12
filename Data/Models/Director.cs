@@ -40,7 +40,7 @@ namespace MovLib.Data.Models
         /// Role of director (shouldn't be else than "Directing")
         /// </summary>
         [Column("department")]
-        public string Department { get; set; } = "Directing";
+        public string Department { get; set; }
         /// <summary>
         /// Reference to Movie table making it 1:N relation
         /// </summary>

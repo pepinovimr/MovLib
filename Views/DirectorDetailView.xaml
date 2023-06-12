@@ -4,9 +4,51 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MovLib.Views"
+             xmlns:conv="clr-namespace:MovLib.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="Title" Text="{Binding Name}" Grid.Row="0" FontSize="32" FontWeight="Bold" Margin="20"/>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Pohlaví:" Margin="10" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Grid.Row="0" Grid.Column="0"/>
+            <TextBlock x:Name="Tagline" Text="{Binding Gender, Converter={x:Static conv:NumberToGenderConverter.Instance}}" Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Margin="10" FontSize="15"/>
+
+            <TextBlock Text="Režírované filmy" Margin="10" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Grid.Row="1" Grid.Column="0"/>
+
+            <DataGrid x:Name="moviesDataGrid" AutoGenerateColumns="False" 
+                    EnableRowVirtualization="True" 
+                    Grid.ColumnSpan="2" Grid.Row="2"
+                    ItemsSource="{Binding Movies}"
+                    Margin="10" RowDetailsVisibilityMode="VisibleWhenSelected"
+                    CanUserAddRows="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Binding="{Binding Title}" Header="Název" 
+                            IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding Tagline}"
+                            Width="*" Header="Popisek" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding VoteAverage}"
+                            Header="Hodnocení" IsReadOnly="True"/>
+                    <DataGridTextColumn Binding="{Binding VoteCount}"
+                            Header="Počet hlasů" IsReadOnly="True"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+        </Grid>
     </Grid>
 </UserControl>

@@ -5,7 +5,8 @@ namespace MovLib.Services.Interfaces
 {
     public interface IMovieService
     {
-        public void DeleteMovie(Movie movie);
         public void DeleteMovies(List<Movie> movies);
+
+        public void AddMovie(Movie movie);
     }
 }

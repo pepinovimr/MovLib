@@ -14,7 +14,7 @@ namespace MovLib.ViewModels
             get { return _movieSource; }
             set
             {
-                if (_movieSource != value)
+                if (_movieSource != value && value is not null)
                 {
                     _movieSource = value;
                     OnPropertyChanged(nameof(MovieSource));
@@ -27,7 +27,7 @@ namespace MovLib.ViewModels
             get { return _movieSource.Title; }
             set
             {
-                if(_movieSource.Title != value)
+                if(_movieSource.Title != value && value is not null)
                 {
                     _movieSource.Title = value;
                     OnPropertyChanged(nameof(Title));
@@ -117,7 +117,7 @@ namespace MovLib.ViewModels
             get { return _movieSource.Overview; }
             set
             {
-                if (_movieSource.Overview != value && value != null)
+                if (_movieSource.Overview != value)
                 {
                     _movieSource.Overview = value;
                     OnPropertyChanged(nameof(Overview));
@@ -127,10 +127,10 @@ namespace MovLib.ViewModels
 
         public string? Tagline
         {
-            get { return _movieSource.Overview; }
+            get { return _movieSource.Tagline; }
             set
             {
-                if (_movieSource.Tagline != value && value != null)
+                if (_movieSource.Tagline != value)
                 {
                     _movieSource.Tagline = value;
                     OnPropertyChanged(nameof(Tagline));

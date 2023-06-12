@@ -19,7 +19,7 @@ namespace MovLib.Data.Models
         /// Original title of movie
         /// </summary>
         [Column("original_title")]
-        public string OriginalTitle { get; set; }
+        public string? OriginalTitle { get; set; }
         /// <summary>
         /// Budget of movie in US$
         /// </summary>
@@ -71,10 +71,6 @@ namespace MovLib.Data.Models
         /// </summary>
         [Column("uid")]
         public int Uid { get; set; }
-        ///// <summary>
-        ///// Id of director from Directors table/model
-        ///// </summary>
-        //[ForeignKey("director_id")]
         //public int DirectorId { get; set; }
         /// <summary>
         /// Foreign key for director

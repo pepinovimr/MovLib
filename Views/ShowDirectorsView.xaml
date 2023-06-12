@@ -29,7 +29,8 @@
           EnableRowVirtualization="True" Grid.Row="1"
           ItemsSource="{Binding DirectorsCollectionView}" 
           bhv:DataGridSelectedItemsBehavior.SelectedItems="{Binding SelectedItems}"
-          Margin="10" RowDetailsVisibilityMode="VisibleWhenSelected">
+          Margin="10" RowDetailsVisibilityMode="VisibleWhenSelected"
+          CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Name}" Header="Jméno" 
                             IsReadOnly="True"/>

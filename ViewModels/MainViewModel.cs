@@ -20,11 +20,15 @@ namespace MovLib.ViewModels
 
         public ICommand ShowMoviesCommand { get; }
         public ICommand ShowDirectorsCommand { get; }
+        public ICommand AddMovieCommand { get; }
+        public ICommand AddDirectorCommand { get; }
 
         public MainViewModel
             (NavigationStore navigationStore, 
             INavigationService showMoviesNavigationService, 
             INavigationService showDirectorsNavigationService,
+            INavigationService addMovieNavigationService,
+            INavigationService addDirectorNavigationService,
             ApplicationDbContext context)
         {
             //Probably better to load on startup and wait, then having lags in app bcs of loading
@@ -36,6 +40,8 @@ namespace MovLib.ViewModels
 
             ShowMoviesCommand = new NavigateCommand(showMoviesNavigationService);
             ShowDirectorsCommand = new NavigateCommand(showDirectorsNavigationService);
+            AddMovieCommand = new NavigateCommand(addMovieNavigationService);
+            AddDirectorCommand = new NavigateCommand(addDirectorNavigationService);
 
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
         }

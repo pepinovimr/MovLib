@@ -12,9 +12,10 @@ namespace MovLib.Services
         {
             _context = context;
         }
-        public void DeleteDirector(Director director)
+
+        public void AddDirector(Director director)
         {
-            _context.Directors.Remove(director);
+            _context.Directors.Add(director);
             _context.SaveChanges();
         }
 

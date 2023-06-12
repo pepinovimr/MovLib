@@ -31,14 +31,18 @@ namespace MovLib
             services.AddSingleton<NavigationStore>();
 
             services.AddScoped<MovieService>();
-            services.AddScoped<IDirectorService, DirectorService>();
+            services.AddScoped<DirectorService>();
             services.AddScoped<INavigationService, NavigationService<ShowMoviesViewModel>>();
             services.AddScoped<INavigationService, NavigationService<ShowDirectorsViewModel>>();
+            services.AddScoped<INavigationService, NavigationService<AddMovieViewModel>>();
+            services.AddScoped<INavigationService, NavigationService<AddDirectorViewModel>>();
 
             services.AddSingleton<MainViewModel>(s => CreateMainViewModel(s));
             services.AddTransient<ShowMoviesViewModel>(s => CreateShowMoviesViewModel(s));
-            services.AddTransient<ShowDirectorsViewModel>();
-            services.AddTransient<MovieDetailViewModel>();
+            services.AddTransient<ShowDirectorsViewModel>(s => CreateShowDirectorsViewModel(s));
+            services.AddTransient<AddMovieViewModel>(s => CreateAddMovieViewModel(s));
+            services.AddTransient<AddDirectorViewModel>();
+
 
             services.AddSingleton<MainWindow>(s => new MainWindow()
             {
@@ -66,6 +70,8 @@ namespace MovLib
                 serviceProvider.GetRequiredService<NavigationStore>(),
                 CreateShowMoviesNavigationService(serviceProvider),
                 CreateShowDirectorsNavigationService(serviceProvider),
+                CreateAddMovieNavigationService(serviceProvider),
+                CreateAddDirectorNavigationService(serviceProvider),
                 serviceProvider.GetRequiredService<ApplicationDbContext>());
         }
 
@@ -82,8 +88,21 @@ namespace MovLib
                 serviceProvider.GetRequiredService<NavigationStore>(),
                 serviceProvider.GetRequiredService<ShowDirectorsViewModel>);
         }
+
+        private INavigationService CreateAddMovieNavigationService(IServiceProvider serviceProvider)
+        {
+            return new NavigationService<AddMovieViewModel>(
+                serviceProvider.GetRequiredService<NavigationStore>(),
+                serviceProvider.GetRequiredService<AddMovieViewModel>);
+        }
+
+        private INavigationService CreateAddDirectorNavigationService(IServiceProvider serviceProvider)
+        {
+            return new NavigationService<AddDirectorViewModel>(
+                serviceProvider.GetRequiredService<NavigationStore>(),
+                serviceProvider.GetRequiredService<AddDirectorViewModel>);
+        }
         #endregion
-        #region ShowMoviesViewModel
 
         private ShowMoviesViewModel CreateShowMoviesViewModel(IServiceProvider serviceProvider)
         {
@@ -91,16 +110,21 @@ namespace MovLib
                 serviceProvider.GetRequiredService<ApplicationDbContext>(),
                 serviceProvider.GetRequiredService<MovieService>(),
                 serviceProvider.GetRequiredService<NavigationStore>());
-                //CreateMovieDetailNavigationService(serviceProvider)); ; ;
         }
 
-        //private ParameterNavigationService<object, BaseViewModel> CreateMovieDetailNavigationService(IServiceProvider serviceProvider)
-        //{
-        //    return new ParameterNavigationService<MovieDetailViewModel>(
-        //        serviceProvider.GetRequiredService<NavigationStore>(),
-        //        serviceProvider.GetRequiredService<MovieDetailViewModel>);
-        //}
+        private ShowDirectorsViewModel CreateShowDirectorsViewModel(IServiceProvider serviceProvider)
+        {
+            return new ShowDirectorsViewModel(
+                serviceProvider.GetRequiredService<ApplicationDbContext>(),
+                serviceProvider.GetRequiredService<DirectorService>(),
+                serviceProvider.GetRequiredService<NavigationStore>());
+        }
+        private AddMovieViewModel CreateAddMovieViewModel(IServiceProvider serviceProvider)
+        {
+            return new AddMovieViewModel(
+                serviceProvider.GetRequiredService<MovieService>(),
+                serviceProvider.GetRequiredService<ApplicationDbContext>());
+        }
 
-        #endregion
     }
 }

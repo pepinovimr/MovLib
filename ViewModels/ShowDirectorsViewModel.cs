@@ -1,6 +1,9 @@
-﻿using MovLib.Data.Context;
+﻿using MovLib.Commands;
+using MovLib.Data.Context;
 using MovLib.Data.Models;
+using MovLib.Services;
 using MovLib.Services.Interfaces;
+using MovLib.Stores;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,11 +15,15 @@ using System.Windows.Input;
 
 namespace MovLib.ViewModels
 {
-    internal class ShowDirectorsViewModel : BaseViewModel
+    public class ShowDirectorsViewModel : BaseViewModel
     {
         private readonly ApplicationDbContext _context;
 
         private readonly IDirectorService _directorService;
+
+        private readonly NavigationStore _navigationStore;
+
+        private ParameterNavigationService<Director, DirectorDetailViewModel> _directorDetailNavigationService;
 
         private readonly ObservableCollection<Director> _directors;
 
@@ -54,19 +61,21 @@ namespace MovLib.ViewModels
         //TODO: Figure out what to do with movies of deleted Directors
         public ICommand DeleteCommand { get; }
         public ICommand ChangeCommand { get; }
+        public ICommand ShowDetailCommand { get; }
 
-        public ShowDirectorsViewModel(ApplicationDbContext context, IDirectorService directorService)
+        public ShowDirectorsViewModel(ApplicationDbContext context, IDirectorService directorService, NavigationStore navigationStore)
         {
             _context = context;
-
             _directorService = directorService;
-
+            _navigationStore = navigationStore;
             _directors = _context.Directors.Local.ToObservableCollection();
 
             SelectedItems = new();
 
             DirectorsCollectionView = CollectionViewSource.GetDefaultView(_directors);
             DirectorsCollectionView.Filter = FilterDirectors;
+
+            ShowDetailCommand = new RelayCommand(OnShowDirectorDetail);
         }
 
         private bool FilterDirectors(object obj)
@@ -90,6 +99,15 @@ namespace MovLib.ViewModels
             }
 
             _directorService.DeleteDirectors(_selectedItems.ToList());
+        }
+
+        private void OnShowDirectorDetail()
+        {
+            _directorDetailNavigationService = new ParameterNavigationService<Director, DirectorDetailViewModel>(
+                _navigationStore,
+                (parameter) => new DirectorDetailViewModel(_selectedItems.First(), _navigationStore));
+
+            _directorDetailNavigationService.Navigate(_selectedItems.First());
         }
     }
 }

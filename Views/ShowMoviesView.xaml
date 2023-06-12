@@ -35,7 +35,8 @@
           EnableRowVirtualization="True" Grid.Row="1"
           ItemsSource="{Binding Movies}" 
           bhv:DataGridSelectedItemsBehavior.SelectedItems="{Binding SelectedItems}"
-          Margin="10" RowDetailsVisibilityMode="VisibleWhenSelected">
+          Margin="10" RowDetailsVisibilityMode="VisibleWhenSelected"
+          CanUserAddRows="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Binding="{Binding Title}" Header="Název" 
                             IsReadOnly="True"/>

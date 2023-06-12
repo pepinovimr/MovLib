@@ -5,12 +5,58 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:MovLib.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="780" d:DesignWidth="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
         <TextBlock x:Name="Title" Text="{Binding Title}" Grid.Row="0" FontSize="32" FontWeight="Bold" Margin="20"/>
+
+        <TextBlock x:Name="Overview" Text="{Binding Tagline}" Grid.Row="1" FontSize="20" Margin="20" FontStyle="Italic" TextWrapping="Wrap"/>
+
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" MaxHeight="280"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="50"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Slogan:" Margin="10" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Grid.Row="0" Grid.Column="0"/>
+            <TextBlock x:Name="Tagline" Text="{Binding Overview}" Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Margin="10" FontSize="15"/>
+
+            <TextBlock Text="Datum vydání:" Margin="10" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Grid.Row="1" Grid.Column="0"/>
+            <TextBlock x:Name="ReleaseDate" Text="{Binding ReleaseDate}" Grid.Row="1" Grid.Column="1" TextWrapping="WrapWithOverflow" Margin="10" FontSize="15"/>
+
+            <TextBlock Text="Režisér" Margin="10" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Grid.Row="2" Grid.Column="0"/>
+            <TextBlock x:Name="Director" Text="{Binding Director.Name}" Grid.Row="2" Grid.Column="1" TextWrapping="WrapWithOverflow" Margin="10" FontSize="15"/>
+            
+            <TextBlock Text="Rozpočet" Margin="10" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Grid.Row="3" Grid.Column="0"/>
+            <TextBlock x:Name="Rozpočet" Text="{Binding Budget, StringFormat={}${0}}" Grid.Row="3" Grid.Column="1" TextWrapping="WrapWithOverflow" Margin="10" FontSize="15"/>
+
+            <TextBlock Text="Výdělek" Margin="10" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Grid.Row="4" Grid.Column="0"/>
+            <TextBlock x:Name="Revenue" Text="{Binding Revenue, StringFormat={}${0}}" Grid.Row="4" Grid.Column="1" TextWrapping="WrapWithOverflow" Margin="10" FontSize="15"/>
+
+            <TextBlock Text="Pořadí" Margin="10" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Grid.Row="5" Grid.Column="0"/>
+            <TextBlock x:Name="Popularity" Text="{Binding Popularity}" Grid.Row="5" Grid.Column="1" TextWrapping="WrapWithOverflow" Margin="10" FontSize="15"/>
+            
+            <TextBlock Text="Hodnocení" Margin="10" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Grid.Row="6" Grid.Column="0"/>
+            <TextBlock x:Name="AverageVote" Text="{Binding VoteAverage}" Grid.Row="6" Grid.Column="1" TextWrapping="WrapWithOverflow" Margin="10" FontSize="15"/>
+            
+            <TextBlock Text="Počet hlasů" Margin="10" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Grid.Row="7" Grid.Column="0"/>
+            <TextBlock x:Name="VoteCount" Text="{Binding VoteCount}" Grid.Row="7" Grid.Column="1" TextWrapping="WrapWithOverflow" Margin="10" FontSize="15"/>
+
+        </Grid>
     </Grid>
 </UserControl>
