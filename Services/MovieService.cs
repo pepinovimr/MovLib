@@ -24,5 +24,11 @@ namespace MovLib.Services
             _context.Movies.Add(movie);
             _context.SaveChanges();
         }
+
+        public void UpdateMovie(Movie movie)
+        {
+            _context.Movies.Update(movie);
+            _context.SaveChanges();
+        }
     }
 }

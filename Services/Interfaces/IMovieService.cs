@@ -8,5 +8,7 @@ namespace MovLib.Services.Interfaces
         public void DeleteMovies(List<Movie> movies);
 
         public void AddMovie(Movie movie);
+
+        public void UpdateMovie(Movie movie);
     }
 }

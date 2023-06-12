@@ -26,7 +26,7 @@ namespace MovLib.ViewModels
         private IMovieService _movieService;
 
         private Movie _movie;
-
+        private readonly bool _isMovieNew;
 
         public ICommand AddMovieCommand { get; }
         public ICommand ChooseDirectorCommand { get; }
@@ -209,10 +209,12 @@ namespace MovLib.ViewModels
             if (movie is not null)
             {
                 _movie = movie;
+                _isMovieNew = false;
             }
             else
             {
                 _movie = new Movie();
+                _isMovieNew = true;
             }
 
 
@@ -231,8 +233,16 @@ namespace MovLib.ViewModels
                 return;
             }
 
-            _movieService.AddMovie(_movie);
-            MessageBox.Show("Film přidán", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+            if(_isMovieNew)
+            {
+                _movieService.AddMovie(_movie);
+                MessageBox.Show("Film přidán", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                _movieService.UpdateMovie(_movie);
+                MessageBox.Show("Film upraven", "Úspěch", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
         }
 
         private bool FilterDirectors(object obj)

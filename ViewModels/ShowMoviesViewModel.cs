@@ -23,7 +23,7 @@ namespace MovLib.ViewModels
         private ObservableCollection<Movie> _movies;
 		
         private ParameterNavigationService<Movie, MovieDetailViewModel> _movieDetailNavigationService;
-        private ParameterNavigationService<Movie, MovieDetailViewModel> _changeMovieNavigationService;
+        private ParameterNavigationService<Movie, AddMovieViewModel> _changeMovieNavigationService;
 
         public ObservableCollection<Movie> Movies
 		{
