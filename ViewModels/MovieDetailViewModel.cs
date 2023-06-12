@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using MovLib.Data.Models;
+using MovLib.Stores;
 
 namespace MovLib.ViewModels
 {
@@ -83,7 +80,7 @@ namespace MovLib.ViewModels
             {
                 if(_movieSource.Revenue != value)
                 {
-                    value = _movieSource.Revenue;
+                    _movieSource.Revenue = value;
                     OnPropertyChanged(nameof(Revenue));
                 }
             }
@@ -154,9 +151,11 @@ namespace MovLib.ViewModels
             }
         }
         #endregion
+        
 
-        public MovieDetailViewModel()
+        public MovieDetailViewModel(Movie movie, NavigationStore navigationStore)
         {
+            _movieSource = movie;
         }
     }
 }

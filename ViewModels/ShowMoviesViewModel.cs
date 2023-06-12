@@ -1,12 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
-using MovLib.Commands;
+﻿using MovLib.Commands;
 using MovLib.Data.Context;
 using MovLib.Data.Models;
 using MovLib.Services;
 using MovLib.Services.Interfaces;
+using MovLib.Stores;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
@@ -21,10 +19,13 @@ namespace MovLib.ViewModels
 		private readonly ApplicationDbContext _context;
 
 		private readonly IMovieService _movieService;
+        private readonly NavigationStore _navigationStore;
+        private ObservableCollection<Movie> _movies;
+		
+        ParameterNavigationService<Movie, MovieDetailViewModel> _movieDetailNavigationService;
 
-		private ObservableCollection<Movie> _movies;
 
-		public ObservableCollection<Movie> Movies
+        public ObservableCollection<Movie> Movies
 		{
 			get { return _movies; }
 			set 
@@ -71,12 +72,12 @@ namespace MovLib.ViewModels
 
 
 
-		public ShowMoviesViewModel(ApplicationDbContext context, IMovieService movieService, INavigationService movieDetailNavigationService)
+		public ShowMoviesViewModel(ApplicationDbContext context, IMovieService movieService, NavigationStore navigationStore)
         {
 			_context = context;
 			_movieService = movieService;
-			ShowDetailCommand = new NavigateCommand(movieDetailNavigationService);
-			//_context.Movies.LoadAsync();
+			_navigationStore = navigationStore;
+
 			_movies = _context.Movies.Local.ToObservableCollection();
 
 			SelectedItems = new ObservableCollection<Movie>();
@@ -85,6 +86,7 @@ namespace MovLib.ViewModels
 			MoviesCollectionView.Filter = FilterMovies;
 
 			DeleteCommand = new RelayCommand(OnMoviesDelete);
+			ShowDetailCommand = new RelayCommand(OnShowMovieDetail);
         }
 
         private void OnMoviesDelete()
@@ -96,6 +98,15 @@ namespace MovLib.ViewModels
 			}
 
 			_movieService.DeleteMovies(_selectedItems.ToList());
+        }
+
+		private void OnShowMovieDetail()
+		{
+            _movieDetailNavigationService = new ParameterNavigationService<Movie, MovieDetailViewModel>(
+                _navigationStore,
+                (parameter) => new MovieDetailViewModel(_selectedItems.First(), _navigationStore));
+
+			_movieDetailNavigationService.Navigate(_selectedItems.First());
         }
 
         private bool FilterMovies(object obj)

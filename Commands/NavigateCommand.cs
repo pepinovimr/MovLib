@@ -1,12 +1,4 @@
-﻿using MovLib.Services;
-using MovLib.Services.Interfaces;
-using MovLib.Stores;
-using MovLib.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MovLib.Services.Interfaces;
 
 namespace MovLib.Commands
 {
@@ -18,6 +10,7 @@ namespace MovLib.Commands
         {
             _navigationService = navigationService;
         }
+
         public override void Execute(object? parameter)
         {
             _navigationService.Navigate();

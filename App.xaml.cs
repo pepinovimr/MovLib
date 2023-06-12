@@ -11,6 +11,7 @@ using System.Data;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media.Media3D;
 
 namespace MovLib
 {
@@ -89,15 +90,16 @@ namespace MovLib
             return new ShowMoviesViewModel(
                 serviceProvider.GetRequiredService<ApplicationDbContext>(),
                 serviceProvider.GetRequiredService<MovieService>(),
-                CreateMovieDetailNavigationService(serviceProvider));
+                serviceProvider.GetRequiredService<NavigationStore>());
+                //CreateMovieDetailNavigationService(serviceProvider)); ; ;
         }
 
-        private INavigationService CreateMovieDetailNavigationService(IServiceProvider serviceProvider)
-        {
-            return new NavigationService<MovieDetailViewModel>(
-                serviceProvider.GetRequiredService<NavigationStore>(),
-                serviceProvider.GetRequiredService<MovieDetailViewModel>);
-        }
+        //private ParameterNavigationService<object, BaseViewModel> CreateMovieDetailNavigationService(IServiceProvider serviceProvider)
+        //{
+        //    return new ParameterNavigationService<MovieDetailViewModel>(
+        //        serviceProvider.GetRequiredService<NavigationStore>(),
+        //        serviceProvider.GetRequiredService<MovieDetailViewModel>);
+        //}
 
         #endregion
     }
