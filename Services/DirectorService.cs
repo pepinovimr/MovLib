@@ -24,5 +24,11 @@ namespace MovLib.Services
             _context.Directors.RemoveRange(directors);
             _context.SaveChanges();
         }
+
+        public void UpdateDirector(Director director)
+        {
+            _context.Directors.Update(director);
+            _context.SaveChanges();
+        }
     }
 }

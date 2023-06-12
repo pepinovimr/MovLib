@@ -1,6 +1,7 @@
 ﻿using MovLib.Data.Models;
 using MovLib.Stores;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace MovLib.ViewModels
 {
@@ -49,7 +50,7 @@ namespace MovLib.ViewModels
             }
         }
 
-        public ICollection<Movie> Movies
+        public Collection<Movie> Movies
         {
             get { return _directorSource.Movies; }
             set

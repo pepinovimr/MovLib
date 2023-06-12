@@ -29,7 +29,6 @@ namespace MovLib.ViewModels
         private readonly bool _isMovieNew;
 
         public ICommand AddMovieCommand { get; }
-        public ICommand ChooseDirectorCommand { get; }
 
         #region Mapping
 

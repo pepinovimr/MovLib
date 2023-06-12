@@ -41,7 +41,7 @@ namespace MovLib
             services.AddTransient<ShowMoviesViewModel>(s => CreateShowMoviesViewModel(s));
             services.AddTransient<ShowDirectorsViewModel>(s => CreateShowDirectorsViewModel(s));
             services.AddTransient<AddMovieViewModel>(s => CreateAddMovieViewModel(s));
-            services.AddTransient<AddDirectorViewModel>();
+            services.AddTransient<AddDirectorViewModel>(s => CreateAddDirectorViewModel(s));
 
 
             services.AddSingleton<MainWindow>(s => new MainWindow()
@@ -126,5 +126,11 @@ namespace MovLib
                 serviceProvider.GetRequiredService<ApplicationDbContext>());
         }
 
+        private AddDirectorViewModel CreateAddDirectorViewModel(IServiceProvider serviceProvider)
+        {
+            return new AddDirectorViewModel(
+                serviceProvider.GetRequiredService<DirectorService>(),
+                serviceProvider.GetRequiredService<ApplicationDbContext>());
+        }
     }
 }

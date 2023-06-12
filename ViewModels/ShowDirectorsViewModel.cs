@@ -24,6 +24,7 @@ namespace MovLib.ViewModels
         private readonly NavigationStore _navigationStore;
 
         private ParameterNavigationService<Director, DirectorDetailViewModel> _directorDetailNavigationService;
+        private ParameterNavigationService<Director, AddDirectorViewModel> _changeDirectorNavigationService;
 
         private readonly ObservableCollection<Director> _directors;
 
@@ -58,7 +59,6 @@ namespace MovLib.ViewModels
             }
         }
 
-        //TODO: Figure out what to do with movies of deleted Directors
         public ICommand DeleteCommand { get; }
         public ICommand ChangeCommand { get; }
         public ICommand ShowDetailCommand { get; }
@@ -76,6 +76,8 @@ namespace MovLib.ViewModels
             DirectorsCollectionView.Filter = FilterDirectors;
 
             ShowDetailCommand = new RelayCommand(OnShowDirectorDetail);
+            DeleteCommand = new RelayCommand(OnDirectorDelete);
+            ChangeCommand = new RelayCommand(OnChangeDirector);
         }
 
         private bool FilterDirectors(object obj)
@@ -108,6 +110,15 @@ namespace MovLib.ViewModels
                 (parameter) => new DirectorDetailViewModel(_selectedItems.First(), _navigationStore));
 
             _directorDetailNavigationService.Navigate(_selectedItems.First());
+        }
+
+        private void OnChangeDirector()
+        {
+            _changeDirectorNavigationService = new ParameterNavigationService<Director, AddDirectorViewModel>(
+                _navigationStore,
+                (parameter) => new AddDirectorViewModel(_directorService, _context, _selectedItems.First()));
+
+            _changeDirectorNavigationService.Navigate(_selectedItems.First());
         }
     }
 }

@@ -3,10 +3,44 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:conv="clr-namespace:MovLib.Converters"
              xmlns:local="clr-namespace:MovLib.Views"
+             xmlns:bhv="clr-namespace:MovLib.Behavior"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="200"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Jméno:" Margin="10" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Grid.Row="0" Grid.Column="0"/>
+        <TextBox x:Name="Name" Text="{Binding Name}" Grid.Row="0" Grid.Column="1" TextWrapping="Wrap" Margin="10" FontSize="15"/>
+
+        <TextBlock Text="Pohlaví:" Margin="10" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Grid.Row="1" Grid.Column="0"/>
+        <ComboBox x:Name="Gender" SelectedItem="{Binding Gender}" Grid.Row="1" Grid.Column="1" Margin="10" FontSize="15" ItemsSource="{Binding Genders}">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Converter={x:Static conv:NumberToGenderConverter.Instance}}" />
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+
+        <TextBlock Text="Identifikátor:" Margin="10" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Grid.Row="2" Grid.Column="0"/>
+        <TextBox x:Name="Uid" Text="{Binding Uid}" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Margin="10" FontSize="15"/>
+
+        <TextBlock Text="Oddělení (role):" Margin="10" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Top" FontWeight="Bold" Grid.Row="3" Grid.Column="0"/>
+        <TextBox x:Name="Department" Text="{Binding Department}" Grid.Row="3" Grid.Column="1" TextWrapping="Wrap" Margin="10" FontSize="15"/>
+
+        <Button Content="Uložit" Grid.Row="6" Grid.ColumnSpan="2" Width="100" Margin="5" Command="{Binding AddDirectorCommand}"/>
+
     </Grid>
 </UserControl>

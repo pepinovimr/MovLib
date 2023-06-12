@@ -25,7 +25,12 @@ namespace MovLib.Converters
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            throw new NotImplementedException();
+            return value switch
+            {
+                "Žena" => 1,
+                "Muž" => 2,
+                _ => string.Empty,
+            };
         }
     }
 }

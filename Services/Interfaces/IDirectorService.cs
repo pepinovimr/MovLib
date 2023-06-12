@@ -8,5 +8,7 @@ namespace MovLib.Services.Interfaces
         public void DeleteDirectors(IEnumerable<Director> directors);
 
         public void AddDirector(Director director);
+
+        public void UpdateDirector(Director director);
     }
 }

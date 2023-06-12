@@ -45,6 +45,6 @@ namespace MovLib.Data.Models
         /// Reference to Movie table making it 1:N relation
         /// </summary>
         [Column("movies")]
-        public virtual ICollection<Movie> Movies { get; set; }
+        public virtual Collection<Movie> Movies { get; set; }
     }
 }
